@@ -11,7 +11,14 @@ class tmatch:
         self.__dimg=self.__cimg;
         self.__matchvalue=eval('cv2.TM_CCOEFF');
 
+    def getposition(self,callback):
+        result=self.domatch();
+        callback();
+        return result;
     def getposition(self):
+        return self.domatch();
+
+    def domatch(self):
         result = cv2.matchTemplate(self.__dimg,self.__timg,self.__matchvalue)
         cv2.normalize(result,result,0,255,cv2.NORM_MINMAX)
         mini,maxi,(mx,my),(Mx,My) = cv2.minMaxLoc(result)
@@ -19,4 +26,5 @@ class tmatch:
             MPx,MPy = mx,my
         else:
             MPx,MPy = Mx,My
+
         return MPx,MPy
