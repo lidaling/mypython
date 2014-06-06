@@ -47,28 +47,34 @@ class Foldermonitor:
             os.system('pwd')
 
             targetzip=basename[0]+'.zip';
-            os.system('zip -r --exclude=*.tif* '+targetzip+' ./worker/'+basename[0]+'/*')
+            os.system('mv ./worker/'+basename[0]+'/output/ ./')
+            os.system('zip -r --exclude=*.tif* '+targetzip+' ./output/')
 
             os.system('mv '+targetzip+' '+self.resultdir)
 	    os.system('rm -rf '+dest+'/'+basename[0])
+	    os.system('rm -rf ./output/')
 
 
     def dealWithTiffFiles(self,folder):
         print('in dealWithTiffFies '+folder)
         for root, dirs, files in os.walk(folder, True):
              for name in files:
-                 if(name.startswith('.')==False and name.count('.tif')>0):
-                    basename=os.path.splitext(name)[0];
-                    os.system('convert '+os.path.join(root,name)+' '+os.path.join(root,basename+'.jpg'));
-                    os.system('rm '+os.path.join(root,name));
-                    os.system(self.slicerpath+' '+root+' '+self.templateconfigpath);
-                    os.system('rm '+os.path.join(root,basename+'.jpg'))
+                 if(name.startswith('.')==False):
+                    if(name.count('.tif')>0):
+                        basename=os.path.splitext(name)[0];
+                        os.system('convert '+os.path.join(root,name)+' '+os.path.join(root,basename+'.jpg'));
+                        os.system('rm '+os.path.join(root,name));
+                        os.system(self.slicerpath+' '+root+' '+self.templateconfigpath);
+                        os.system('rm '+os.path.join(root,basename+'.jpg'))
+                    elif(name.count('.jpg')>0 or name.count('.png')>0 or name.count('.jpeg')>0):
+                        basename=os.path.splitext(name)[0];
+                        os.system('rm '+os.path.join(root,name));
+                        os.system(self.slicerpath+' '+root+' '+self.templateconfigpath);
+                        os.system('rm '+os.path.join(root,basename+'.jpg'))
 
-                    #os.system('zip -r '+basename+' ./*');
-                    #dest=root.replace(self.uploaddir,self.resultdir);
-                    #os.system('mkdir -p '+dest);
-                    #os.system('cp ./'+basename+' '+dest);
-                    #os.system('rm -rf '+folder);
 
 monitor=Foldermonitor();
 monitor.start();
+
+
+

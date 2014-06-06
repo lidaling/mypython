@@ -34,14 +34,14 @@ def match(matchvalue):
 #tmpfile='/tmp/'+str(uuid.uuid4())+'.png'
 #print('tmpitem:'+tmpitem+'|tmpfile:'+tmpfile)
 
-img = cv2.imread('/Users/lidl/Desktop/tt/1-1664_2338.jpg')
-template = cv2.imread('/Users/lidl/Desktop/tt/template.jpg')
+img = cv2.imread('/Users/lidl/Desktop/tt/4-1632_2242.jpg')
+template = cv2.imread('/Users/lidl//temfile.jpg')
 
 
-crop_img = img[0:900, 0:1600]
+#crop_img = img[0:900, 0:1600]
 #template=img[200:400,100:300]
 #cv2.imshow("cropped", crop_img)
-img=crop_img;
+#img=crop_img;
 
 #img= cv2.imread(tmpitem)
 
@@ -66,7 +66,8 @@ cv2.createTrackbar('method','input',matchvalue,max_Trackbar,match)
 #for meth in methods:
 #    method = eval(meth)
 #    match(method)
-method=eval('cv2.TM_CCOEFF');
+# method=eval('cv2.TM_CCOEFF');
+method=eval('cv2.TM_SQDIFF');
 match(method)
 
 if cv2.waitKey(0) == 27:
