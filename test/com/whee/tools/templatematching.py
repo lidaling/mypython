@@ -34,8 +34,8 @@ def match(matchvalue):
 #tmpfile='/tmp/'+str(uuid.uuid4())+'.png'
 #print('tmpitem:'+tmpitem+'|tmpfile:'+tmpfile)
 
-img = cv2.imread('/Users/lidl/Desktop/tt/4-1632_2242.jpg')
-template = cv2.imread('/Users/lidl//temfile.jpg')
+img = cv2.imread('/Users/lidl/Desktop/tt/4-1658_2272.jpg')
+template = cv2.imread('/Users/lidl/Desktop/tt/template.jpg')
 
 
 #crop_img = img[0:900, 0:1600]

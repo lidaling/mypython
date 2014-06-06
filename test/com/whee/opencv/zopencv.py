@@ -15,10 +15,10 @@ class tmatch:
         self.__dimg=self.__cimg;
         # self.__matchvalue=eval('cv2.TM_CCOEFF');
         self.__matchvalue=eval('cv2.TM_SQDIFF');
-        cv2.imshow("cropped", self.__cimg)
 
-        if cv2.waitKey(0) == 27:
-            cv2.destroyAllWindows()
+        #cv2.imshow("cropped", self.__cimg)
+        #if cv2.waitKey(0) == 27:
+        #    cv2.destroyAllWindows()
 
 
     def getposition(self,callback=None):
@@ -31,12 +31,11 @@ class tmatch:
         result = cv2.matchTemplate(self.__dimg,self.__timg,self.__matchvalue)
         cv2.normalize(result,result,0,255,cv2.NORM_MINMAX)
         mini,maxi,(mx,my),(Mx,My) = cv2.minMaxLoc(result)
-        if(mini<0):
-            if self.__matchvalue in [0,1]:
-                MPx,MPy = mx,my
-            else:
-                MPx,MPy = Mx,My
+
+
+        if self.__matchvalue in [0,1]:
+            MPx,MPy = mx,my
         else:
-            Mpx,Mpy=0,0
+            MPx,MPy = Mx,My
 
         return MPx,MPy
